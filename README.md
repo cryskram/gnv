@@ -7,13 +7,13 @@ _**An automation tool that is based on Command Line and Selenium that creates or
 
 ## Features
 
- - Creates or Deletes yourGitHub repos
+ - Creates or Deletes your GitHub repos
  - Doesn't collect any data of the users
  - Fast
  - Open Source
  - Automated look[The best part]
- - Can be used Globally
- - Once done with the creation or deletion of the repo, gnv signs-out with the account making it much secure and finally closes the browser to let you run other git commands to commit and push files to your repo
+ - Can be used Globally on the developers work-machine
+ - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
 
 # Prerequisites:
 
