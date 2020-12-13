@@ -54,7 +54,7 @@ _Hope you don;t uninstall **'gnv'**. But if you want so then run_
 
 _Nothing else is required to run gnv. Selenium and Click modules with their dependencies are installed during the installation of gnv_
 
-### License
+### License ![GitHub](https://img.shields.io/github/license/mashape/apistatus)
 Copyright 2020 GN Vageesh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
