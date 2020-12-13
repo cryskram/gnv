@@ -137,6 +137,9 @@ def cli():
 @click.option('-r', "--readme", prompt="Do you add a Readme file to your repo[y/n]", help="Addition of a readme file to the repo")
 @click.pass_context
 def create(ctx, name, un, pd, des, private, readme):
+    """
+    Creates GitHub Repositories
+    """
     ctx.invoke(create_repo, name=name, un=un, pd=pd, des=des, option=private, readme=readme)
 
 
@@ -147,6 +150,9 @@ def create(ctx, name, un, pd, des, private, readme):
 @click.option('-c', "--confirm", prompt="Are you sure that you want to delete this repo[y/n]", help="Confirmation to delete the repo")
 @click.pass_context
 def delete(ctx, name, un, pd, confirm):
+    """
+    Deletes GitHub Repositories
+    """
     ctx.invoke(delete_repo, name=name, un=un, pd=pd, confirm=confirm)
 
 

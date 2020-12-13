@@ -1,4 +1,4 @@
-# gnv - _1.0_
+# gnv - _1.0.1_
 _**An automation tool that is based on Command Line and Selenium that creates or deletes Github repos from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
