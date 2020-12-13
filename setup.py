@@ -15,6 +15,7 @@ setup(
     long_description=open('README.md').read() + '\n\n' + open('CHANGELOG.txt').read(),
     author='GNVageesh',
     author_email='vageeshgn2005@gmail.com',
+    url='https://github.com/GNVageesh/gnv',
     license='MIT',
     packages=find_packages(),
     keywords='cli',

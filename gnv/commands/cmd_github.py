@@ -65,13 +65,15 @@ def create_repo(name, un, pd, option, readme, des):
     sleep(3)
     browser.close()
     click.echo(f"Successfully created {name} at https://github.com/{un}/{name}")
-    click.echo(f"Run the following commands in your project directory to upload files to your repo")
-    click.echo(f"git add <file-name> or git add .")
-    click.echo(f'git commit -m "commit text"')
-    click.echo(f"git branch -M <branch-name>")
-    click.echo(f"git remote add origin https://github.com/{un}/{name}.git")
-    click.echo(f"git push -u origin <branch-name>")
-    click.echo(f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory")
+    click.echo(" -------------------------------------------------------------------------------------------------------------------")
+    click.echo(f"| Run the following commands in your project directory to upload files to your repo                               |")
+    click.echo(f"| git add <file-name> or git add .                                                                                |")
+    click.echo(f'| git commit -m "commit text"                                                                                     |')
+    click.echo(f"| git branch -M <branch-name>                                                                                     |")
+    click.echo(f"| git remote add origin https://github.com/{un}/{name}.git                                                        |")
+    click.echo(f"| git push -u origin <branch-name>                                                                                |")
+    click.echo(f"| If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory  |")
+    click.echo(" -------------------------------------------------------------------------------------------------------------------")
 
 
 def delete_repo(name, un, pd, confirm):
@@ -128,9 +130,9 @@ def cli():
 
 @click.command(help="Creates Repo to Github")
 @click.argument("name", type=str)
-@click.option('-u', "--un", prompt="username or e-mail", help="GitHub username or email")
-@click.option('-p', "--pd", prompt="password", help="Github Password")
-@click.option('-d', "--des", prompt="A sweet description of your repo.", help="Adds Description to the repo")
+@click.option('-u', "--un", required=True, prompt="username or e-mail", help="GitHub username or email")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="password", help="Github Password")
+@click.option('-d', "--des", prompt="A sweet description of your repo", help="Adds Description to the repo")
 @click.option('-s', "--private", prompt="The repo is private or public[pri/pub]", help="Repo is Private or Public")
 @click.option('-r', "--readme", prompt="Do you add a Readme file to your repo[y/n]", help="Addition of a readme file to the repo")
 @click.pass_context
