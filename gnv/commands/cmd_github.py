@@ -142,8 +142,8 @@ def create(ctx, name, un, pd, des, private, readme):
 
 @click.command(help="Deletes the Repo from Github")
 @click.argument("name", type=str)
-@click.option('-u', "--un", prompt="username or e-mail", help="GitHub username or email")
-@click.option('-p', "--pd", prompt="password", help="Github Password")
+@click.option('-u', "--un", required=True, prompt="username or e-mail", help="GitHub username or email")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="password", help="Github Password")
 @click.option('-c', "--confirm", prompt="Are you sure that you want to delete this repo[y/n]", help="Confirmation to delete the repo")
 @click.pass_context
 def delete(ctx, name, un, pd, confirm):
