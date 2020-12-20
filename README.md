@@ -33,6 +33,8 @@ _**An automation tool that is based on Command Line and Selenium that creates or
  - Google Chrome Browser
  - Chrome Driver and its path set
  - GitHub Account
+ - Python with pip
+ - Preferable Python version should be 3
  - And finally a Text-Editor, IDE or a general terminal for running the command
  
 _Note:_ ***Please make sure to disable 2FA(2 Factor Authentication) on your GitHub account as gnv uses 'selenium' and the latter needs to get proper elements of the browser at the right time, else the program stops executing. Maybe in the next version of 'gnv' I will make it work even with 2FA enabled. Kindly Oblige***
