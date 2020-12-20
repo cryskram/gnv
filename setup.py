@@ -24,13 +24,18 @@ setup(
     author_email='vageeshgn2005@gmail.com',
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3"
+        "Programming Language :: Python :: 3",
+        'Environment :: Console'
     ],
     license='MIT',
+    maintainer='GN Vageesh',
+    maintainer_email='vageeshgn2005@gmail.com',
+    download_url='https://github.com/GNVageesh/gnv',
     packages=find_packages(),
     keywords='cli',
     include_package_data=True,
     install_requires=read_requirements(),
+    url="https://pypi.org/project/gnv/",
     entry_points='''
         [console_scripts]
         gnv=gnv.cli:cli
