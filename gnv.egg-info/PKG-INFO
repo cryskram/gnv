@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: gnv
-Version: 1.0.2
+Version: 1.0.3
 Summary: An automation tool to create and delete GitHub Repos using the developers terminal[in an amazing automated look]
 Home-page: https://pypi.org/project/gnv/
 Author: GN Vageesh
@@ -25,6 +25,18 @@ Description: # gnv - _1.0.3_
          - Automated look[The best part]
          - Can be used Globally on the developers work-machine
          - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
+        
+        ## ChangeLog:
+        
+         - *v1.0.4:* _Major Release capability to set Github Status, set theme, list account repos_
+        
+         - *v1.0.3:* _improved speed in creating and deleting Repos, with enabled auto element detection for slow internet and direct URL launching feature to improve the time efficiency_
+        
+         - *v1.0.2:* _Bug Fix. Improved Time Efficiency. Password hidden feature in the terminal or console._
+        
+         - *v1.0.1:* _Username and Password through the command line instead of the code itself_
+        
+         - *v1.0:* _The initial Stable version_
         
         # Prerequisites:
         
@@ -84,4 +96,5 @@ Platform: UNKNOWN
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
 Classifier: Environment :: Console
+Classifier: Development Status :: 5 - Production/Stable
 Description-Content-Type: text/markdown

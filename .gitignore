@@ -1,3 +1,4 @@
-build
-venv
-gnv.egg-info
+build/
+venv/
+gnv.egg-info/
+__pycache__/

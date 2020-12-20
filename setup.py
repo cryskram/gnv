@@ -16,7 +16,7 @@ def readme():
 
 setup(
     name='gnv',
-    version='1.0.3',
+    version='1.0.4',
     description='An automation tool to create and delete GitHub Repos using the developers terminal[in an amazing automated look]',
     long_description=readme(),
     long_description_content_type="text/markdown",
@@ -25,7 +25,8 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        'Environment :: Console'
+        'Environment :: Console',
+        'Development Status :: 5 - Production/Stable'
     ],
     license='MIT',
     maintainer='GN Vageesh',

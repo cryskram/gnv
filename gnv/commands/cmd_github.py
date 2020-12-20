@@ -1,4 +1,5 @@
 import click
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -104,6 +105,114 @@ def delete_repo(name, un, pd, confirm):
         click.echo(f"Failed to delete {name} repo")
 
 
+def ListRepos(uname, pwd):
+    browser = webdriver.Chrome()
+    browser.get(f"https://github.com/login")
+    sleep(3)
+    try:
+        username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+        username.clear()
+        username.send_keys(uname)
+        passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+        passwd.clear()
+        passwd.send_keys(pwd)
+        login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+        login_btn.click()
+        browser.get(f"https://github.com/{uname}?tab=repositories")
+        repo = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "user-repositories-list")))
+        nameList = repo.find_elements_by_tag_name('li')
+        for name in nameList:
+            title = name.find_element_by_class_name("wb-break-all")
+            print(title.text)
+        drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+        drop_down.click()
+        sleep(2)
+        sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+        sign_out.click()
+        sleep(2)
+    except:
+        browser.quit()
+
+
+def themeSet(uname, pwd, theme_name):
+    try:
+        if theme_name == "light":
+            browser = webdriver.Chrome()
+            browser.get(f"https://github.com/login")
+            sleep(3)
+            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username.clear()
+            username.send_keys(uname)
+            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd.clear()
+            passwd.send_keys(pwd)
+            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn.click()
+            browser.get(f"https://github.com/settings/appearance")
+            light_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-light")))
+            light_theme.click()
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down.click()
+            sleep(2)
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out.click()
+            sleep(2)
+        elif theme_name == "dark":
+            browser = webdriver.Chrome()
+            browser.get(f"https://github.com/login")
+            sleep(3)
+            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username.clear()
+            username.send_keys(uname)
+            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd.clear()
+            passwd.send_keys(pwd)
+            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn.click()
+            browser.get(f"https://github.com/settings/appearance")
+            dark_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-dark")))
+            dark_theme.click()
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down.click()
+            sleep(2)
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out.click()
+            sleep(2)
+        elif theme_name == "default":
+            browser = webdriver.Chrome()
+            browser.get(f"https://github.com/login")
+            sleep(3)
+            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username.clear()
+            username.send_keys(uname)
+            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd.clear()
+            passwd.send_keys(pwd)
+            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn.click()
+            browser.get(f"https://github.com/settings/appearance")
+            def_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-auto")))
+            def_theme.click()
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down.click()
+            sleep(2)
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out.click()
+            sleep(2)
+        else:
+            click.echo("No Such theme found for Github")
+    except:
+        browser = webdriver.Chrome()
+        browser.quit()
+
+
+# def cmd():
+#     os.system('dir')
+#     click.echo('')
+#     path = os.system('pwd')
+#     click.echo(path)
+
+
 @click.group()
 def cli():
     pass
@@ -112,7 +221,7 @@ def cli():
 @click.command(help="Creates Repo to Github")
 @click.argument("name", type=str)
 @click.option('-u', "--un", required=True, prompt="username", help="GitHub username")
-@click.option('-p', "--pd", required=True, hide_input=True, prompt="password", help="Github Password")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.option('-d', "--des", prompt="A sweet description of your repo", help="Adds Description to the repo")
 @click.option('-s', "--private", prompt="The repo is private or public[pri/pub]", help="Repo is Private or Public")
 @click.option('-r', "--readme", prompt="Do you add a Readme file to your repo[y/n]", help="Addition of a readme file to the repo")
@@ -127,7 +236,7 @@ def create(ctx, name, un, pd, des, private, readme):
 @click.command(help="Deletes the Repo from Github")
 @click.argument("name", type=str)
 @click.option('-u', "--un", required=True, prompt="username", help="GitHub username")
-@click.option('-p', "--pd", required=True, hide_input=True, prompt="password", help="Github Password")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.option('-c', "--confirm", prompt="Are you sure that you want to delete this repo[y/n]", help="Confirmation to delete the repo")
 @click.pass_context
 def delete(ctx, name, un, pd, confirm):
@@ -137,5 +246,38 @@ def delete(ctx, name, un, pd, confirm):
     ctx.invoke(delete_repo, name=name, un=un, pd=pd, confirm=confirm)
 
 
+@click.command(help="Lists the Repos of your Account")
+@click.option('-u', "--user", required=True, prompt="Username", help="GitHub username")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
+@click.pass_context
+def repos(ctx, user, pd):
+    """
+    Lists the Repos of the Account
+    """
+    ctx.invoke(ListRepos, uname=user, pwd=pd)
+
+
+@click.command(help="Lists the Repos of your Account")
+@click.option('-u', "--user", required=True, prompt="Username", help="GitHub username")
+@click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
+@click.option('-n', "--name", required=True, prompt="Which theme[light, dark, default] would you like to set", help="Github Theme")
+@click.pass_context
+def theme(ctx, user, pd, name):
+    """
+    Changes the Github Theme
+    """
+    ctx.invoke(themeSet, uname=user, pwd=pd, theme_name=name)
+    click.echo('')
+    click.echo(f"Successfully Updated your GitHub Theme to {name}")
+
+
+# @click.command(help="Run Commands")
+# @click.pass_context
+# def test(ctx):
+#     ctx.invoke(cmd)
+
+
 cli.add_command(create)
 cli.add_command(delete)
+cli.add_command(repos)
+cli.add_command(theme)

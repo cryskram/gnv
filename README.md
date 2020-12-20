@@ -15,6 +15,19 @@ _**An automation tool that is based on Command Line and Selenium that creates or
  - Can be used Globally on the developers work-machine
  - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
 
+## ChangeLog:
+
+ - *v1.0.4:* _Major Release, capability to set Github theme, list repos of the given account_
+    _Note_: **Please Provide Your Username and account for all the commands as gnv needs it for getting the right data of the right user**
+
+ - *v1.0.3:* _improved speed in creating and deleting Repos, with enabled auto element detection for slow internet and direct URL launching feature to improve the time efficiency_
+
+ - *v1.0.2:* _Bug Fix. Improved Time Efficiency. Password hidden feature in the terminal or console._
+
+ - *v1.0.1:* _Username and Password through the command line instead of the code itself_
+
+ - *v1.0:* _The initial Stable version_
+
 # Prerequisites:
 
  - Google Chrome Browser
