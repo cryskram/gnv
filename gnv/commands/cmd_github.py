@@ -1,9 +1,11 @@
 import click
 import os
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 from time import sleep
 
 
@@ -12,34 +14,43 @@ def create_repo(name, un, pd, option, readme, des):
     browser.get("https://www.github.com/login")
     sleep(3)
     try:
-        username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+        username = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "login_field")))
         username.clear()
         username.send_keys(un)
-        passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+        passwd = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "password")))
         passwd.clear()
         passwd.send_keys(pd)
-        login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+        login_btn = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.NAME, "commit")))
         login_btn.click()
         browser.get("https://www.github.com/new")
-        repo_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_name")))
+        repo_name = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "repository_name")))
         repo_name.clear()
         repo_name.send_keys(name)
-        description = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_description")))
+        description = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "repository_description")))
         description.clear()
         description.send_keys(des)
         if option == "pub":
-            pub_tog = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_visibility_public")))
+            pub_tog = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "repository_visibility_public")))
             pub_tog.click()
         elif option == "pri":
-            pri_tog = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_visibility_private")))
+            pri_tog = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "repository_visibility_private")))
             pri_tog.click()
             sleep(2)
         else:
-            pub_tog = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_visibility_public")))
+            pub_tog = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "repository_visibility_public")))
             pub_tog.click()
             click.echo(f"Bad command {option}, the repo is taken to be public")
         if readme == "y":
-            read_me = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "repository_auto_init")))
+            read_me = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "repository_auto_init")))
             read_me.click()
             sleep(2)
         elif readme == "n":
@@ -48,61 +59,90 @@ def create_repo(name, un, pd, option, readme, des):
         else:
             click.echo(f"Bad command {readme}, could not add a readme file")
             sleep(2)
-            done_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#new_repository > div.js-with-permission-fields > button")))
-            done_btn.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
-            drop_down.click()
-            sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
-            sign_out.click()
-            sleep(2)
-    except:
+        done_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="new_repository"]/div[4]/button')))
+        done_btn.click()
+        # /html/body/div[1]/header/div[7]/details/summary
+        drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+            (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+        drop_down.click()
+        sleep(1)
+        sign_out = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+        sign_out.click()
+        sleep(2)
+    except NoSuchElementException:
+        print('No signout btn')
         browser.quit()
-    click.echo(f"Successfully created {name} at https://github.com/{un}/{name}")
-    click.echo(f"Run the following commands in your project directory to upload files to your repo:")
+    click.echo(
+        f"Successfully created {name} at https://github.com/{un}/{name}")
+    click.echo(
+        f"Run the following commands in your project directory to upload files to your repo:")
     click.echo(f"git add <file-name> or git add .")
     click.echo(f'git commit -m "commit text"')
     click.echo(f"git branch -M <branch-name>")
     click.echo(f"git remote add origin https://github.com/{un}/{name}.git")
     click.echo(f"git push -u origin <branch-name>")
-    click.echo(f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory")
+    click.echo(
+        f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory")
 
 
-def delete_repo(name, un, pd, confirm):
-    if confirm == "y":
+def delete_repo(name, un, pd, confirm, option):
+    if confirm == "y" & (option == "pub" | option == "pri"):
         browser = webdriver.Chrome()
         browser.get("https://www.github.com/login")
         sleep(2)
         try:
-            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "login_field")))
             username.clear()
             username.send_keys(un)
-            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "password")))
             passwd.clear()
             passwd.send_keys(pd)
-            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.NAME, "commit")))
             login_btn.click()
             browser.get(f"https://www.github.com/{un}/{name}/settings")
-            delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary')))
-            delete.click()
-            delete_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/p/input')))
+            if option == "pri":
+                delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                    # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
+                    (By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary')))
+                delete.click()
+            elif option == "pub":
+                delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                    # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
+                    (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary')))
+                delete.click()
+            else:
+                click.echo(f"Bad command {option}, couldn't delete the repo")
+                sys.exit()
+            delete_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/p/input')))
             delete_name.clear()
             delete_name.send_keys(f"{un}/{name}")
-            confirm_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/button')))
-            confirm_btn.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            confirm_btn_main = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/button')))
+            confirm_btn_main.click()
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
             drop_down.click()
             sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
         except:
             browser.quit()
-        click.echo(f"Successfully deleted {name} at https://github.com/{un}/{name}")
+            click.echo(
+                f"Could not delete the repo at https://github.com/{un}/{name}")
+        click.echo(
+            f"Successfully deleted {name} at https://github.com/{un}/{name}")
     elif confirm == "n":
         click.echo(f"Aborted the deletion of {name} repo")
     else:
-        click.echo(f"Failed to delete {name} repo")
+        click.echo(f"Aborted the deletion of {name} repo")
 
 
 def ListRepos(uname, pwd):
@@ -110,24 +150,30 @@ def ListRepos(uname, pwd):
     browser.get(f"https://github.com/login")
     sleep(3)
     try:
-        username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+        username = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "login_field")))
         username.clear()
         username.send_keys(uname)
-        passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+        passwd = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.ID, "password")))
         passwd.clear()
         passwd.send_keys(pwd)
-        login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+        login_btn = WebDriverWait(browser, 6).until(
+            EC.presence_of_element_located((By.NAME, "commit")))
         login_btn.click()
         browser.get(f"https://github.com/{uname}?tab=repositories")
-        repo = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "user-repositories-list")))
+        repo = WebDriverWait(browser, 10).until(
+            EC.presence_of_element_located((By.ID, "user-repositories-list")))
         nameList = repo.find_elements_by_tag_name('li')
         for name in nameList:
             title = name.find_element_by_class_name("wb-break-all")
             print(title.text)
-        drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+        drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+            (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
         drop_down.click()
         sleep(2)
-        sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+        sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+            (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
         sign_out.click()
         sleep(2)
     except:
@@ -140,63 +186,81 @@ def themeSet(uname, pwd, theme_name):
             browser = webdriver.Chrome()
             browser.get(f"https://github.com/login")
             sleep(3)
-            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "login_field")))
             username.clear()
             username.send_keys(uname)
-            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "password")))
             passwd.clear()
             passwd.send_keys(pwd)
-            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.NAME, "commit")))
             login_btn.click()
             browser.get(f"https://github.com/settings/appearance")
-            light_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-light")))
+            light_theme = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "option-light")))
             light_theme.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
             drop_down.click()
             sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
         elif theme_name == "dark":
             browser = webdriver.Chrome()
             browser.get(f"https://github.com/login")
             sleep(3)
-            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "login_field")))
             username.clear()
             username.send_keys(uname)
-            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "password")))
             passwd.clear()
             passwd.send_keys(pwd)
-            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.NAME, "commit")))
             login_btn.click()
             browser.get(f"https://github.com/settings/appearance")
-            dark_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-dark")))
+            dark_theme = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "option-dark")))
             dark_theme.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
             drop_down.click()
             sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
         elif theme_name == "default":
             browser = webdriver.Chrome()
             browser.get(f"https://github.com/login")
             sleep(3)
-            username = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "login_field")))
+            username = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "login_field")))
             username.clear()
             username.send_keys(uname)
-            passwd = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "password")))
+            passwd = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "password")))
             passwd.clear()
             passwd.send_keys(pwd)
-            login_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.NAME, "commit")))
+            login_btn = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.NAME, "commit")))
             login_btn.click()
             browser.get(f"https://github.com/settings/appearance")
-            def_theme = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, "option-auto")))
+            def_theme = WebDriverWait(browser, 6).until(
+                EC.presence_of_element_located((By.ID, "option-auto")))
             def_theme.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
             drop_down.click()
             sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
         else:
@@ -220,7 +284,7 @@ def cli():
 
 @click.command(help="Creates Repo to Github")
 @click.argument("name", type=str)
-@click.option('-u', "--un", required=True, prompt="username", help="GitHub username")
+@click.option('-u', "--un", required=True, prompt="Username", help="GitHub username")
 @click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.option('-d', "--des", prompt="A sweet description of your repo", help="Adds Description to the repo")
 @click.option('-s', "--private", prompt="The repo is private or public[pri/pub]", help="Repo is Private or Public")
@@ -230,20 +294,23 @@ def create(ctx, name, un, pd, des, private, readme):
     """
     Creates GitHub Repositories
     """
-    ctx.invoke(create_repo, name=name, un=un, pd=pd, des=des, option=private, readme=readme)
+    ctx.invoke(create_repo, name=name, un=un, pd=pd,
+               des=des, option=private, readme=readme)
 
 
 @click.command(help="Deletes the Repo from Github")
 @click.argument("name", type=str)
-@click.option('-u', "--un", required=True, prompt="username", help="GitHub username")
+@click.option('-u', "--un", required=True, prompt="Username", help="GitHub username")
 @click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.option('-c', "--confirm", prompt="Are you sure that you want to delete this repo[y/n]", help="Confirmation to delete the repo")
+@click.option('-o', "--option", prompt="Is it a private or public repo[pub/pri]")
 @click.pass_context
-def delete(ctx, name, un, pd, confirm):
+def delete(ctx, name, option, un, pd, confirm):
     """
     Deletes GitHub Repositories
     """
-    ctx.invoke(delete_repo, name=name, un=un, pd=pd, confirm=confirm)
+    ctx.invoke(delete_repo, option=option, name=name,
+               un=un, pd=pd, confirm=confirm)
 
 
 @click.command(help="Lists the Repos of your Account")

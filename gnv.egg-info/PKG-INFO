@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: gnv
-Version: 1.0.3
+Version: 1.0.4
 Summary: An automation tool to create and delete GitHub Repos using the developers terminal[in an amazing automated look]
 Home-page: https://pypi.org/project/gnv/
 Author: GN Vageesh
@@ -9,7 +9,7 @@ Maintainer: GN Vageesh
 Maintainer-email: vageeshgn2005@gmail.com
 License: MIT
 Download-URL: https://github.com/GNVageesh/gnv
-Description: # gnv - _1.0.3_
+Description: # gnv - _1.0.4_
         _**An automation tool that is based on Command Line and Selenium that creates or deletes Github repos from the developers terminal**_
         
         > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
@@ -28,7 +28,8 @@ Description: # gnv - _1.0.3_
         
         ## ChangeLog:
         
-         - *v1.0.4:* _Major Release capability to set Github Status, set theme, list account repos_
+         - *v1.0.4:* _Major Release, capability to set Github theme, list repos of the given account_
+            _Note_: **Please Provide Your Username and account for all the commands as gnv needs it for getting the right data of the right user**
         
          - *v1.0.3:* _improved speed in creating and deleting Repos, with enabled auto element detection for slow internet and direct URL launching feature to improve the time efficiency_
         
@@ -43,6 +44,8 @@ Description: # gnv - _1.0.3_
          - Google Chrome Browser
          - Chrome Driver and its path set
          - GitHub Account
+         - Python with pip
+         - Preferable Python version should be 3
          - And finally a Text-Editor, IDE or a general terminal for running the command
          
         _Note:_ ***Please make sure to disable 2FA(2 Factor Authentication) on your GitHub account as gnv uses 'selenium' and the latter needs to get proper elements of the browser at the right time, else the program stops executing. Maybe in the next version of 'gnv' I will make it work even with 2FA enabled. Kindly Oblige***
