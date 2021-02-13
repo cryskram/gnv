@@ -306,7 +306,7 @@ def command(repon, un):
     path = os.getcwd()
     click.secho('GIT PROCCESS', blink=True, bold=True, fg="bright_yellow")
     option = click.prompt(
-        f'Do you want to instialize git here "{path}" [y/n/man]')
+        f'Do you want to initialize git here "{path}" [y/n/man]')
     if option == 'y':
         os.system('git init')
         os.system(f'echo "# {repon}" >> README.md')
