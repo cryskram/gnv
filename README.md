@@ -1,5 +1,5 @@
-# gnv - _1.0.4_
-_**An automation tool that is based on Command Line and Selenium that creates or deletes Github repos from the developers terminal**_
+# gnv - _1.0.5_
+_**An automation tool that is based on Command Line and Selenium that controls Github repos, themes and data from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
 
@@ -16,6 +16,8 @@ _**An automation tool that is based on Command Line and Selenium that creates or
  - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
 
 ## ChangeLog:
+
+ - *v1.0.5:* _Big Release. Added Functionallity to create git in any repquired destination path, Improved colors for the terminal, more accuracy in deleting repositories, bug fixes_
 
  - *v1.0.4:* _Major Release, capability to set Github theme, list repos of the given account_
     _Note_: **Please Provide Your Username and account for all the commands as gnv needs it for getting the right data of the right user**
@@ -57,17 +59,26 @@ _After installing gnv using any of the above 2 methods run the following command
 **To delete a GitHub Repo**
 `gnv github delete <repo-name>`
 
+**To set Theme for GitHub account**
+`gnv github theme <light/dark/default>`
 
-_After running these command you will be asked to give your github Username or email and password and some others to enhance your repo. **No worries! No data is taken** It is just for the login and logout purpose_
+**To list your GitHub accounts repositories**
+`gnv github list`
+
+**To run commands of git to add, commit and push files in a single command**
+`gnv github ga`
+
+
+_After running these command you will be asked to give your github Username and password and some others to know what are your needs. **No worries! No data is taken** It is just for the security purpose_
 
 ## Uninstalling
 
-_Hope you don;t uninstall **'gnv'**. But if you want so then run_
+_Hope you don't uninstall **'gnv'**. But if you want so then run_
 `pip uninstall gnv` or `pip3 uninstall gnv`
 
 ## Any Extras to be installed?
 
-_Nothing else is required to run gnv. Selenium and Click modules with their dependencies are installed during the installation of gnv_
+_Nothing else is required to run gnv. Selenium and Click modules with their dependencies are installed during the installation of gnv. Only set your webdrivers path correctly_
 
 ### License ![GitHub](https://img.shields.io/github/license/mashape/apistatus)
 Copyright 2020 GN Vageesh

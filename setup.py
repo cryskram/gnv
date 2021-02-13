@@ -16,24 +16,29 @@ def readme():
 
 setup(
     name='gnv',
-    version='1.0.4',
-    description='An automation tool to create and delete GitHub Repos using the developers terminal[in an amazing automated look]',
+    version='1.0.5',
+    description='An automation tool to control GitHub Repos, Theme and Data using the developers terminal[in an amazing automated look]',
     long_description=readme(),
     long_description_content_type="text/markdown",
     author='GN Vageesh',
     author_email='vageeshgn2005@gmail.com',
     classifiers=[
         "License :: OSI Approved :: MIT License",
+        "Intended Audience :: Developers",
+        "Operating System :: Unix",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python :: 3",
         'Environment :: Console',
         'Development Status :: 5 - Production/Stable'
     ],
     license='MIT',
+    keywords=['python', 'python3', 'automation',
+              'console', 'click', 'selenium', 'easy', 'hacks', 'cli'],
     maintainer='GN Vageesh',
     maintainer_email='vageeshgn2005@gmail.com',
     download_url='https://github.com/GNVageesh/gnv',
     packages=find_packages(),
-    keywords='cli',
     include_package_data=True,
     install_requires=read_requirements(),
     url="https://pypi.org/project/gnv/",
@@ -41,4 +46,4 @@ setup(
         [console_scripts]
         gnv=gnv.cli:cli
     '''
-)       
+)

@@ -1,6 +1,6 @@
 Change Log
 ==========
 
-1.0.4 (20/12/2020:20:24 IST)
+1.0.5 (13/02/2021:17:38 IST)
 ------------------
-- Fifth Release: Stable
+- Sixth Release: Stable

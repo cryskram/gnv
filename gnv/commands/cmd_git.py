@@ -1,3 +1,4 @@
+import time
 import click
 import os
 import sys
@@ -52,13 +53,10 @@ def create_repo(name, un, pd, option, readme, des):
             read_me = WebDriverWait(browser, 6).until(
                 EC.presence_of_element_located((By.ID, "repository_auto_init")))
             read_me.click()
-            sleep(2)
         elif readme == "n":
             click.echo("Didn't add a Read me file to your repo as you told")
-            sleep(2)
         else:
             click.echo(f"Bad command {readme}, could not add a readme file")
-            sleep(2)
         done_btn = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
             (By.XPATH, '//*[@id="new_repository"]/div[4]/button')))
         done_btn.click()
@@ -70,79 +68,102 @@ def create_repo(name, un, pd, option, readme, des):
         sign_out = WebDriverWait(browser, 6).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
         sign_out.click()
-        sleep(2)
-    except NoSuchElementException:
-        print('No signout btn')
+        sleep(1)
         browser.quit()
-    click.echo(
-        f"Successfully created {name} at https://github.com/{un}/{name}")
-    click.echo(
-        f"Run the following commands in your project directory to upload files to your repo:")
-    click.echo(f"git add <file-name> or git add .")
-    click.echo(f'git commit -m "commit text"')
-    click.echo(f"git branch -M <branch-name>")
-    click.echo(f"git remote add origin https://github.com/{un}/{name}.git")
-    click.echo(f"git push -u origin <branch-name>")
-    click.echo(
-        f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory")
+        command(repon=name, un=un)
+        click.secho(
+            f"Successfully created {name} at https://github.com/{un}/{name}", fg='blue')
+        click.secho(
+            f"Run the following commands in your project directory to upload files to your repo:", fg='green')
+        click.secho(f"git add <file-name> or git add .", fg='green')
+        click.secho(f'git commit -m "commit text"', fg='green')
+        click.secho(f"git branch -M <branch-name>", fg='green')
+        click.secho(
+            f"git remote add origin https://github.com/{un}/{name}.git", fg='green')
+        click.secho(f"git push -u origin <branch-name>", fg='green')
+        click.secho(
+            f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory", fg='green')
+    except:
+        browser.quit()
 
 
 def delete_repo(name, un, pd, confirm, option):
-    if confirm == "y" & (option == "pub" | option == "pri"):
-        browser = webdriver.Chrome()
-        browser.get("https://www.github.com/login")
-        sleep(2)
-        try:
-            username = WebDriverWait(browser, 6).until(
-                EC.presence_of_element_located((By.ID, "login_field")))
-            username.clear()
-            username.send_keys(un)
-            passwd = WebDriverWait(browser, 6).until(
-                EC.presence_of_element_located((By.ID, "password")))
-            passwd.clear()
-            passwd.send_keys(pd)
-            login_btn = WebDriverWait(browser, 6).until(
-                EC.presence_of_element_located((By.NAME, "commit")))
-            login_btn.click()
-            browser.get(f"https://www.github.com/{un}/{name}/settings")
-            if option == "pri":
-                delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                    # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
-                    (By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary')))
-                delete.click()
-            elif option == "pub":
-                delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                    # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
-                    (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary')))
-                delete.click()
-            else:
-                click.echo(f"Bad command {option}, couldn't delete the repo")
-                sys.exit()
-            delete_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/p/input')))
-            delete_name.clear()
-            delete_name.send_keys(f"{un}/{name}")
-            confirm_btn_main = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/button')))
-            confirm_btn_main.click()
-            drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
-            drop_down.click()
+    if confirm == "y":
+        if (option == "pub" or option == "pri"):
+            browser = webdriver.Chrome()
+            browser.get("https://www.github.com/login")
             sleep(2)
-            sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
-                (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
-            sign_out.click()
-            sleep(2)
-        except:
-            browser.quit()
-            click.echo(
-                f"Could not delete the repo at https://github.com/{un}/{name}")
-        click.echo(
-            f"Successfully deleted {name} at https://github.com/{un}/{name}")
+            try:
+                username = WebDriverWait(browser, 6).until(
+                    EC.presence_of_element_located((By.ID, "login_field")))
+                username.clear()
+                username.send_keys(un)
+                passwd = WebDriverWait(browser, 6).until(
+                    EC.presence_of_element_located((By.ID, "password")))
+                passwd.clear()
+                passwd.send_keys(pd)
+                login_btn = WebDriverWait(browser, 6).until(
+                    EC.presence_of_element_located((By.NAME, "commit")))
+                login_btn.click()
+                browser.get(f"https://www.github.com/{un}/{name}/settings")
+                if option == "pri":
+                    delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
+                        (By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/summary')))
+                    delete.click()
+                elif option == "pub":
+                    delete = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        # //*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary
+                        (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/summary')))
+                    delete.click()
+                else:
+                    click.echo(
+                        f"Bad command {option}, couldn't delete the repo")
+                if option == "pub":
+                    delete_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/p/input')))
+                    delete_name.clear()
+                    delete_name.send_keys(f"{un}/{name}")
+                elif option == "pri":
+                    delete_name = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        (By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/p/input')))
+                    delete_name.clear()
+                    delete_name.send_keys(f"{un}/{name}")
+                else:
+                    click.echo(
+                        f"Bad command {option}, couldn't delete the repo")
+                if option == "pub":
+                    confirm_btn_main = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        (By.XPATH, '//*[@id="options_bucket"]/div[10]/ul/li[4]/details/details-dialog/div[3]/form/button')))
+                    confirm_btn_main.click()
+                elif option == "pri":
+                    confirm_btn_main = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                        (By.XPATH, '//*[@id="options_bucket"]/div[9]/ul/li[4]/details/details-dialog/div[3]/form/button')))
+                    confirm_btn_main.click()
+                else:
+                    click.echo(
+                        f"Bad command {option}, couldn't delete the repo")
+                drop_down = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                    (By.XPATH, "/html/body/div[1]/header/div[7]/details/summary")))
+                drop_down.click()
+                sleep(2)
+                sign_out = WebDriverWait(browser, 6).until(EC.presence_of_element_located(
+                    (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
+                sign_out.click()
+                sleep(2)
+                click.secho(
+                    f"Successfully deleted {name} at https://github.com/{un}/{name}", fg='green')
+            except:
+                browser.quit()
+                click.secho(
+                    f"Could not delete the repo at https://github.com/{un}/{name}", fg='red')
+
+        else:
+            click.echo(f"Bad command {option}, failed deleteing the repo")
     elif confirm == "n":
         click.echo(f"Aborted the deletion of {name} repo")
     else:
-        click.echo(f"Aborted the deletion of {name} repo")
+        click.echo(f"Bad command {confirm}, couldn't delete the repo")
 
 
 def ListRepos(uname, pwd):
@@ -165,6 +186,7 @@ def ListRepos(uname, pwd):
         repo = WebDriverWait(browser, 10).until(
             EC.presence_of_element_located((By.ID, "user-repositories-list")))
         nameList = repo.find_elements_by_tag_name('li')
+        print('---------------------------------')
         for name in nameList:
             title = name.find_element_by_class_name("wb-break-all")
             print(title.text)
@@ -209,6 +231,8 @@ def themeSet(uname, pwd, theme_name):
                 (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
+            click.echo(
+                f"Successfully Updated your GitHub Theme to {theme_name} theme")
         elif theme_name == "dark":
             browser = webdriver.Chrome()
             browser.get(f"https://github.com/login")
@@ -236,6 +260,8 @@ def themeSet(uname, pwd, theme_name):
                 (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
+            click.echo(
+                f"Successfully Updated your GitHub Theme to {theme_name} theme")
         elif theme_name == "default":
             browser = webdriver.Chrome()
             browser.get(f"https://github.com/login")
@@ -263,6 +289,8 @@ def themeSet(uname, pwd, theme_name):
                 (By.XPATH, '/html/body/div[1]/header/div[7]/details/details-menu/form/button')))
             sign_out.click()
             sleep(2)
+            click.echo(
+                f"Successfully Updated your GitHub Theme to {theme_name} theme")
         else:
             click.echo("No Such theme found for Github")
     except:
@@ -270,11 +298,91 @@ def themeSet(uname, pwd, theme_name):
         browser.quit()
 
 
-# def cmd():
-#     os.system('dir')
-#     click.echo('')
-#     path = os.system('pwd')
-#     click.echo(path)
+def command(repon, un):
+    # os.system('dir')
+    # click.echo('')
+    # path = os.system('pwd')
+    # click.echo(path)
+    path = os.getcwd()
+    click.secho('GIT PROCCESS', blink=True, bold=True, fg="bright_yellow")
+    option = click.prompt(
+        f'Do you want to instialize git here "{path}" [y/n/man]')
+    if option == 'y':
+        os.system('git init')
+        os.system(f'echo "# {repon}" >> README.md')
+        os.system('git add .')
+        msg = click.prompt('Please enter the commit message')
+        os.system(f'git commit -m "{msg}"')
+        branch = click.prompt(
+            "Please enter the branch name to which you wanna commit these files")
+        os.system(f'git branch -M {branch}')
+        os.system(
+            f'git remote add origin https://github.com/{un}/{repon}.git')
+        os.system(f'git push -u origin {branch}')
+    elif option == 'n':
+        click.secho('Didnt initialize', fg='red')
+        sys.exit()
+    elif option == 'man':
+        name = click.prompt(click.style(
+            'In which directory do you want to git', fg='green'))
+        dirpath = os.path.isdir(name)
+        if dirpath is True:
+            os.chdir(name)
+            dir = os.getcwd()
+            click.echo(f'Changed directory to: {dir}')
+            os.system('git init')
+            os.system(f'echo "# {repon}" >> README.md')
+            os.system('git add .')
+            msg = click.prompt('Please enter the commit message')
+            os.system(f'git commit -m "{msg}"')
+            branch = click.prompt(
+                "Please enter the branch name to which you wanna commit these files")
+            os.system(f'git branch -M {branch}')
+            os.system(
+                f'git remote add origin https://github.com/{un}/{repon}.git')
+            os.system(f'git push -u origin {branch}')
+        else:
+            click.echo(f'Sorry, Directory {name} doesnt exist')
+    else:
+        click.echo(f'Wrong choice {option}')
+
+
+def send_commands():
+    # os.system('dir')
+    # click.echo('')
+    # path = os.system('pwd')
+    # click.echo(path)
+    path = os.getcwd()
+    click.secho('GIT PROCCESS', blink=True, bold=True, fg="bright_yellow")
+    option = click.prompt(
+        f'Is this the path to the repo files "{path}" [y/n/]')
+    if option == 'y':
+        os.system('git add .')
+        msg = click.prompt('Please enter the commit message')
+        os.system(f'git commit -m "{msg}"')
+        branch = click.prompt(
+            "Please enter the branch name to which you wanna commit these files")
+        os.system(f'git branch -M {branch}')
+        os.system(f'git push -u origin {branch}')
+    elif option == 'n':
+        name = click.prompt(click.style(
+            'Enter the directory path where git is initialized and the project files are present', fg='green'))
+        dirpath = os.path.isdir(name)
+        if dirpath is True:
+            os.chdir(name)
+            dir = os.getcwd()
+            click.echo(f'Changed directory to: {dir}')
+            os.system('git add .')
+            msg = click.prompt('Please enter the commit message')
+            os.system(f'git commit -m "{msg}"')
+            branch = click.prompt(
+                "Please enter the branch name to which you wanna commit these files")
+            os.system(f'git branch -M {branch}')
+            os.system(f'git push -u origin {branch}')
+        else:
+            click.echo(f'Sorry, Directory {name} doesnt exist')
+    else:
+        click.echo(f'Wrong choice {option}')
 
 
 @click.group()
@@ -317,14 +425,14 @@ def delete(ctx, name, option, un, pd, confirm):
 @click.option('-u', "--user", required=True, prompt="Username", help="GitHub username")
 @click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.pass_context
-def repos(ctx, user, pd):
+def list(ctx, user, pd):
     """
     Lists the Repos of the Account
     """
     ctx.invoke(ListRepos, uname=user, pwd=pd)
 
 
-@click.command(help="Lists the Repos of your Account")
+@click.command(help="Changes your GitHub Account theme")
 @click.option('-u', "--user", required=True, prompt="Username", help="GitHub username")
 @click.option('-p', "--pd", required=True, hide_input=True, prompt="Password", help="Github Password")
 @click.option('-n', "--name", required=True, prompt="Which theme[light, dark, default] would you like to set", help="Github Theme")
@@ -334,17 +442,19 @@ def theme(ctx, user, pd, name):
     Changes the Github Theme
     """
     ctx.invoke(themeSet, uname=user, pwd=pd, theme_name=name)
-    click.echo('')
-    click.echo(f"Successfully Updated your GitHub Theme to {name}")
 
 
-# @click.command(help="Run Commands")
-# @click.pass_context
-# def test(ctx):
-#     ctx.invoke(cmd)
+@click.command(help="Run Commands")
+@click.pass_context
+def ga(ctx):
+    """
+    Run all git commands to add, commit and push
+    """
+    ctx.invoke(send_commands)
 
 
 cli.add_command(create)
 cli.add_command(delete)
-cli.add_command(repos)
+cli.add_command(list)
 cli.add_command(theme)
+cli.add_command(ga)
