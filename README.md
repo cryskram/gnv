@@ -7,7 +7,7 @@ _**An automation tool that is based on Command Line and Selenium that controls G
 
 ## Features
 
- - Creates or Deletes your GitHub repos
+ - Controls Github from CLI
  - Doesn't collect any data of the users
  - Fast
  - Open Source
@@ -53,20 +53,21 @@ _There are 2 ways for the setup or installation of **gnv**_:
 
 ## Usage
 _After installing gnv using any of the above 2 methods run the following commands:_
+
 **To create a GitHub Repo:**
-`gnv github create <repo-name>`
+`gnv git create <repo-name>`
 
 **To delete a GitHub Repo**
-`gnv github delete <repo-name>`
+`gnv git delete <repo-name>`
 
 **To set Theme for GitHub account**
-`gnv github theme <light/dark/default>`
+`gnv git theme <light/dark/default>`
 
 **To list your GitHub accounts repositories**
-`gnv github list`
+`gnv git list`
 
 **To run commands of git to add, commit and push files in a single command**
-`gnv github ga`
+`gnv git ga`
 
 
 _After running these command you will be asked to give your github Username and password and some others to know what are your needs. **No worries! No data is taken** It is just for the security purpose_
