@@ -1,5 +1,7 @@
 # testing commit
 
+# added support to discord as well
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
