@@ -356,13 +356,27 @@ def send_commands():
     option = click.prompt(
         f'Is this the path to the repo files "{path}" [y/n/]')
     if option == 'y':
-        os.system('git add .')
-        msg = click.prompt('Please enter the commit message')
-        os.system(f'git commit -m "{msg}"')
-        branch = click.prompt(
-            "Please enter the branch name to which you wanna commit these files")
-        os.system(f'git branch -M {branch}')
-        os.system(f'git push -u origin {branch}')
+        git_dir = os.path.isdir(".git")
+        if git_dir is True:
+            os.system('git add .')
+            msg = click.prompt('Please enter the commit message')
+            os.system(f'git commit -m "{msg}"')
+            branch = click.prompt(
+                "Please enter the branch name to which you wanna commit these files")
+            os.system(f'git branch -M {branch}')
+            os.system(f'git push -u origin {branch}')
+        else:
+            click.echo("No .git folder folder found in this path.")
+            click.echo(f"Initialising git directory here in this path: {path}")
+            os.system("git init")
+            os.system('git add .')
+            msg = click.prompt('Please enter the commit message')
+            os.system(f'git commit -m "{msg}"')
+            branch = click.prompt(
+                "Please enter the branch name to which you wanna commit these files")
+            os.system(f'git branch -M {branch}')
+            os.system(f'git push -u origin {branch}')
+
     elif option == 'n':
         name = click.prompt(click.style(
             'Enter the directory path where git is initialized and the project files are present', fg='green'))
@@ -371,6 +385,7 @@ def send_commands():
             os.chdir(name)
             dir = os.getcwd()
             click.echo(f'Changed directory to: {dir}')
+            os.system("git init")
             os.system('git add .')
             msg = click.prompt('Please enter the commit message')
             os.system(f'git commit -m "{msg}"')
