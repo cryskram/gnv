@@ -1,4 +1,4 @@
-# gnv - _1.0.5_
+# gnv - _1.0.6_
 _**An automation tool that is based on Command Line and Selenium that controls Github repos, themes and data from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
@@ -17,9 +17,12 @@ _**An automation tool that is based on Command Line and Selenium that controls G
 
 ## ChangeLog:
 
+ - *v1.0.6:* _Bug Fix._
+
  - *v1.0.5:* _Big Release. Added Functionallity to create git in any repquired destination path, Improved colors for the terminal, more accuracy in deleting repositories, bug fixes_
 
- - *v1.0.4:* _Major Release, capability to set Github theme, list repos of the given account_
+ - *v1.0.4:* _Major Release, capability to set Github theme, list repos of the given account._
+    
     _Note_: **Please Provide Your Username and account for all the commands as gnv needs it for getting the right data of the right user**
 
  - *v1.0.3:* _improved speed in creating and deleting Repos, with enabled auto element detection for slow internet and direct URL launching feature to improve the time efficiency_
@@ -66,7 +69,7 @@ _After installing gnv using any of the above 2 methods run the following command
 **To list your GitHub accounts repositories**
 `gnv git list`
 
-**To run commands of git to add, commit and push files in a single command**
+**To run commands of git all the git commands**
 `gnv git ga`
 
 
