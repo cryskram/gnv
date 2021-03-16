@@ -1,4 +1,4 @@
-# gnv - _1.0.6_
+# gnv - _1.0.7_
 _**An automation tool that is based on Command Line and Selenium that controls Github repos, themes and data from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
@@ -16,6 +16,8 @@ _**An automation tool that is based on Command Line and Selenium that controls G
  - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
 
 ## ChangeLog:
+
+ - *v1.0.7:* _Minor Bug Fix._ 
 
  - *v1.0.6:* _Bug Fix._
 

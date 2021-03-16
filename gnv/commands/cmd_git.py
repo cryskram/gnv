@@ -73,14 +73,6 @@ def create_repo(name, un, pd, option, readme, des):
         click.secho(
             f"Successfully created {name} at https://github.com/{un}/{name}", fg='blue')
         click.secho(
-            f"Run the following commands in your project directory to upload files to your repo:", fg='green')
-        click.secho(f"git add <file-name> or git add .", fg='green')
-        click.secho(f'git commit -m "commit text"', fg='green')
-        click.secho(f"git branch -M <branch-name>", fg='green')
-        click.secho(
-            f"git remote add origin https://github.com/{un}/{name}.git", fg='green')
-        click.secho(f"git push -u origin <branch-name>", fg='green')
-        click.secho(
             f"If you want to clone the repo then type git clone https://github.com/{un}/{name}.git in your desired directory", fg='green')
     except:
         browser.quit()
@@ -303,7 +295,7 @@ def command(repon, un):
     # path = os.system('pwd')
     # click.echo(path)
     path = os.getcwd()
-    click.secho('GIT PROCCESS', blink=True, bold=True, fg="bright_yellow")
+    click.secho('GIT PROCCESS', bold=True, fg="bright_yellow")
     option = click.prompt(
         f'Do you want to initialize git here "{path}" [y/n/man]')
     if option == 'y':
@@ -317,9 +309,9 @@ def command(repon, un):
         os.system(f'git branch -M {branch}')
         os.system(
             f'git remote add origin https://github.com/{un}/{repon}.git')
-        os.system(f'git push -u origin {branch}')
+        os.system(f'git push -uf origin {branch}')
     elif option == 'n':
-        click.secho('Didnt initialize', fg='red')
+        click.secho('Didnt initialize, script terminated', fg='red')
         sys.exit()
     elif option == 'man':
         name = click.prompt(click.style(
@@ -339,7 +331,7 @@ def command(repon, un):
             os.system(f'git branch -M {branch}')
             os.system(
                 f'git remote add origin https://github.com/{un}/{repon}.git')
-            os.system(f'git push -u origin {branch}')
+            os.system(f'git push -uf origin {branch}')
         else:
             click.echo(f'Sorry, Directory {name} doesnt exist')
     else:
@@ -352,9 +344,9 @@ def send_commands():
     # path = os.system('pwd')
     # click.echo(path)
     path = os.getcwd()
-    click.secho('GIT PROCCESS', blink=True, bold=True, fg="bright_yellow")
+    click.secho('GIT PROCCESS', bold=True, fg="bright_yellow")
     option = click.prompt(
-        f'Is this the path to the repo files "{path}" [y/n/]')
+        f'Is this the path to the repo files "{path}" [y/n]')
     if option == 'y':
         git_dir = os.path.isdir(".git")
         if git_dir is True:
@@ -364,7 +356,7 @@ def send_commands():
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
             os.system(f'git branch -M {branch}')
-            os.system(f'git push -u origin {branch}')
+            os.system(f'git push -uf origin {branch}')
         else:
             click.echo("No .git folder folder found in this path.")
             click.echo(f"Initialising git directory here in this path: {path}")
@@ -375,7 +367,7 @@ def send_commands():
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
             os.system(f'git branch -M {branch}')
-            os.system(f'git push -u origin {branch}')
+            os.system(f'git push -uf origin {branch}')
 
     elif option == 'n':
         name = click.prompt(click.style(
@@ -392,7 +384,7 @@ def send_commands():
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
             os.system(f'git branch -M {branch}')
-            os.system(f'git push -u origin {branch}')
+            os.system(f'git push -uf origin {branch}')
         else:
             click.echo(f'Sorry, Directory {name} doesnt exist')
     else:
