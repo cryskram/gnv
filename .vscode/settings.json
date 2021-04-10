@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "/home/vaageesh/anaconda3/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true
 }

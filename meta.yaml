@@ -1,0 +1,12 @@
+package:
+  name: gnv
+  version: 1.0.7
+
+build:
+  number: 7
+
+requirements:
+  run:
+    - python
+about:
+  summary: An CLI based Automation Tool for Controling GitHub with Automation
