@@ -1,4 +1,4 @@
-# gnv - _1.0.7_
+# gnv - _1.0.7_ [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/version.svg)](https://anaconda.org/gnvageesh/gnv) [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/installer/conda.svg)](https://conda.anaconda.org/gnvageesh)
 _**An automation tool that is based on Command Line and Selenium that controls Github repos, themes and data from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
@@ -17,7 +17,7 @@ _**An automation tool that is based on Command Line and Selenium that controls G
 
 ## ChangeLog:
 
- - *v1.0.7:* _Minor Bug Fix._ 
+ - *v1.0.7:* _Minor Bug Fix. Release of v1.0.7 to anaconda_ 
 
  - *v1.0.6:* _Bug Fix._
 
