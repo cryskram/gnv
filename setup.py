@@ -16,7 +16,7 @@ def readme():
 
 setup(
     name='gnv',
-    version='1.0.7',
+    version='1.0.8',
     description='An automation tool to control GitHub, using the developers terminal with cool automation',
     long_description=readme(),
     long_description_content_type="text/markdown",

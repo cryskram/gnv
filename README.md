@@ -1,4 +1,4 @@
-# gnv - _1.0.7_ [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/version.svg)](https://anaconda.org/gnvageesh/gnv) [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/installer/conda.svg)](https://conda.anaconda.org/gnvageesh) ![GitHub repo size](https://img.shields.io/github/repo-size/GNVageesh/gnv?style=flat-square) ![GitHub repo size](https://img.shields.io/badge/gnv-autmation-orange?style=flat-square)
+# gnv - _1.0.8_ [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/version.svg)](https://anaconda.org/gnvageesh/gnv) [![Anaconda-Server Badge](https://anaconda.org/gnvageesh/gnv/badges/installer/conda.svg)](https://conda.anaconda.org/gnvageesh) ![GitHub repo size](https://img.shields.io/github/repo-size/GNVageesh/gnv?style=flat-square) ![GitHub repo size](https://img.shields.io/badge/gnv-autmation-orange?style=flat-square)
 _**An automation tool that is based on Command Line and Selenium that controls Github repos, themes and data from the developers terminal**_
 
 > _**gnv** uses **'click'** and **'selenium'** modules/packages of python to give the users a feel of both the command line interface and automation at the same time_
@@ -16,6 +16,8 @@ _**An automation tool that is based on Command Line and Selenium that controls G
  - gnv signs-out the account after the process has completed to enable developers use git commands and improve security
 
 ## ChangeLog:
+
+ - *v1.0.8:* _Added a small feature, that was a bug, to **`'gnv git ga'`**_
 
  - *v1.0.7:* _Minor Bug Fix. Release of v1.0.7 to anaconda_ 
 

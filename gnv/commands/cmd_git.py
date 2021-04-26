@@ -355,6 +355,10 @@ def send_commands():
             os.system(f'git commit -m "{msg}"')
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
+            reponame = click.prompt("Please Enter The Repository Name")
+            user = click.prompt('Enter The Username')
+            os.system(
+                f'git remote add origin https://github.com/{user}/{reponame}.git')
             os.system(f'git branch -M {branch}')
             os.system(f'git push -uf origin {branch}')
         else:
@@ -366,6 +370,10 @@ def send_commands():
             os.system(f'git commit -m "{msg}"')
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
+            reponame = click.prompt("Please Enter The Repository Name")
+            user = click.prompt('Enter The Username Of This Repository')
+            os.system(
+                f'git remote add origin https://github.com/{user}/{reponame}.git')
             os.system(f'git branch -M {branch}')
             os.system(f'git push -uf origin {branch}')
 
@@ -383,6 +391,10 @@ def send_commands():
             os.system(f'git commit -m "{msg}"')
             branch = click.prompt(
                 "Please enter the branch name to which you wanna commit these files")
+            reponame = click.prompt("Please Enter The Repository Name")
+            user = click.prompt('Enter The Username')
+            os.system(
+                f'git remote add origin https://github.com/{user}/{reponame}.git')
             os.system(f'git branch -M {branch}')
             os.system(f'git push -uf origin {branch}')
         else:

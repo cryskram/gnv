@@ -1,1 +1,1 @@
-echo "Building"
+echo "Building gnv...."

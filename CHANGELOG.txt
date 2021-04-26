@@ -1,6 +1,34 @@
 Change Log
 ==========
 
+1.0.8 (26/04/2021:17:40 IST)
+------------------
+- Eighth Release: Stable
+
 1.0.7 (16/03/2021:11:21 IST)
 ------------------
+- Eighth Release: Stable
+
+1.0.6 (05/03/2021:18:50 IST)
+------------------
 - Seventh Release: Stable
+
+1.0.5 (13/02/2021:17:38 IST)
+------------------
+- Sixth Release: Stable
+
+1.0.4 (20/12/2020 IST)
+------------------
+- Fifth Release: Stable
+
+1.0.3 (20/12/2020 IST)
+------------------
+- Fourth Release: Stable
+
+1.0.2 (13/12/2020 IST)
+------------------
+- Second Release: Stable
+
+1.0 (13/12/2020 IST)
+------------------
+- First Release: Stable

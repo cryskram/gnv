@@ -1,9 +1,9 @@
 package:
   name: gnv
-  version: 1.0.7
+  version: 1.0.8
 
 build:
-  number: 7
+  number: 2
 
 requirements:
   run:
